@@ -248,17 +248,17 @@ const UserForm: React.FC = () => {
                 mt={2}
               />             
              </div>
-             
+
               {fields.map((field, index) => (
-                <HStack key={field.id} spacing={2} >
+                <HStack key={field.id} spacing={2}>
                   <Controller
                     name={`techStack.${index}.name`}
                     control={control}
                     render={({ field }) => (
                       <Input
-                        {...field}
+                      {...field}
                         placeholder="Tech stack"
-                        className="rounded-md h-[35px] w-[300px] bg-[#d9d9d9] px-3 p-2 outline-none text-black mb-2"
+                        className="rounded-md h-[35px] w-[300px] bg-[#d9d9d9] px-3 p-2 mr-2 outline-none text-black mb-2"
                       />
                     )}
                   />
@@ -272,10 +272,9 @@ const UserForm: React.FC = () => {
                   <ErrorMessage
                     name={`techStack.${index}.name`}
                     errors={errors}
-                  />
+                    />
                 </HStack>
-              ))}
-           
+              ))}          
             </FormControl>
           </div>
           <Button
