@@ -16,7 +16,7 @@ const DisplaySubmittedData = forwardRef<DisplayRef, {}>((props, ref) => {
   }));
 
   return (
-    <div className="flex flex-col space-y-2 p-5 items-start bg-[#f0eeee] h-[300px]  rounded-lg text-lg font-semibold justify-start mx-auto w-[695px]">
+    <div className="flex flex-col space-y-2 p-5 items-start bg-[#f0eeee] h-[300px] rounded-lg text-lg font-semibold justify-start mx-auto w-[695px]">
 
       <p className="capitalize">First Name: {data ? data.firstName : ""}</p>
       <p className="capitalize">Last Name: {data ? data.lastName : ""}</p>

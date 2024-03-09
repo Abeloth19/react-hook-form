@@ -111,7 +111,7 @@ const UserForm: React.FC = () => {
        <div className="flex flex-col space-y-5 p-6 rounded-lg mt-10 bg-[#f0eeee]">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={4}>
-         <div className="flex flex-col space-y-5 ">
+         <div className="flex flex-col space-y-5">
             <h1 className="text-black text-2xl font-bold"> Basic Details </h1>
             <div className="flex flex-row space-x-10">
               <FormControl isInvalid={!!errors.firstName}>
@@ -181,7 +181,7 @@ const UserForm: React.FC = () => {
                         id="phoneNumber"
                         value={value}
                         onChange={(e) => {
-                      
+                    
                           const newValue = e.target.value
                             .replace(/[^0-9]/g, "")
                             .slice(0, 10);
@@ -282,7 +282,7 @@ const UserForm: React.FC = () => {
             colorScheme="teal"
             isLoading={isSubmitting}
             type="submit"
-            className="flex ml-auto w-[150px] h-[35px] text-lg font-semibold bg-[#d9d9d9] p-1 text-black rounded-md "
+            className="flex ml-auto w-[150px] h-[35px] text-lg font-semibold bg-[#d9d9d9] p-1 text-black rounded-md"
           >
             Submit
           </Button>
