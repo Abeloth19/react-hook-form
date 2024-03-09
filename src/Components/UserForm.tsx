@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import DisplaySubmittedData, { DisplayRef } from "./DisplaySubmittedData";
 import { format } from "date-fns";
 import {
@@ -15,7 +15,6 @@ import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ErrorMessage from "./ErrorMessageComponent";
-import PhoneInputWithCountry from "react-phone-number-input/react-hook-form";
 import { toast } from 'react-hot-toast';
 
 
@@ -40,13 +39,11 @@ const validationSchema: any = yup.object().shape({
     ),
   email: yup.string().email("Invalid email").required("Email is required"),
   phoneNumber: yup
-    .string()
-    .required("Phone Number is required")
-    .test(
-      "len",
-      "Phone number must be exactly 10 characters",
-      (val) => val?.length === 13
-    ),
+  .string()
+  .required("Phone Number is required")
+  .matches(/^\d+$/, "Only numbers are allowed")
+  .min(10, "Phone number must be exactly 10 characters") 
+  .max(10, "Phone number must be exactly 10 characters"),
   gender: yup
     .string()
     .required("Gender is required")
@@ -162,19 +159,38 @@ const UserForm: React.FC = () => {
                 <FormLabel htmlFor="phoneNumber" className="font-bold mb-2">
                   Phone Number
                 </FormLabel>
-              <div
-                  className="form-input !pr-10 !py-1.5 !bg-[#d9d9d9] !rounded-md w-[300px] "
-                  
-                >
-                  {/* Styling for this component is overridden in index.css */}
-                  <PhoneInputWithCountry
-                    className="business-phone-form-input"
+                <div className="flex items-center px-2 h-[35px] bg-[#d9d9d9] rounded-md w-[300px]">
+                  <span>+91</span>
+                  <Controller
                     name="phoneNumber"
                     control={control}
-                    maxLength={16}
-                    limitMaxLength
-                    defaultCountry={"IN"}
-                    international
+                    rules={{
+                      required: "Phone Number is required",
+                      pattern: {
+                        value: /^[0-9]+$/,
+                        message: "Only numbers are allowed",
+                      },
+                      maxLength: {
+                        value: 10,
+                        message: "Phone number must be exactly 10 characters",
+                      },
+                    }}
+                    render={({ field: { onChange, value } }) => (
+                      <Input
+                        type="tel"
+                        id="phoneNumber"
+                        value={value}
+                        onChange={(e) => {
+                      
+                          const newValue = e.target.value
+                            .replace(/[^0-9]/g, "")
+                            .slice(0, 10);
+                          onChange(newValue);
+                        }}
+                        className="outline-none px-3 bg-transparent"
+                        placeholder="Enter Phone Number"
+                      />
+                    )}
                   />
                 </div>
                 <ErrorMessage name="phoneNumber" errors={errors} />
