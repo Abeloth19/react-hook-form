@@ -1,13 +1,57 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input::placeholder{
+  color: black;
+};
+
+
+/* .business-phone-form-input input {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background-color: inherit;
+  padding-left: 4px;
+} */
+
+.PhoneInputCountrySelectArrow {
+  margin-left: 8px;
+  width: 8px;
+  height: 8px;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+  border-radius: 1px;
+  margin-top: -2px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.PhoneInput {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px; /* Adjust the gap as needed */
+}
+
+.PhoneInputCountry {
+  display: flex;
+}
+
+.PhoneInputCountrySelect{
+  display: none;
+}
+
+.PhoneInputInput {
+background : transparent;
+outline: none;
+color: black;
+}
+
+
+
+
+.PhoneInputCountryIcon--border  {
+  box-shadow: none !important;
+  width: 24px;
+  height: 16px;
+
 }
