@@ -11,11 +11,13 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
-import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
+import { AddIcon, CloseIcon} from "@chakra-ui/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ErrorMessage from "./ErrorMessageComponent";
 import { toast } from 'react-hot-toast';
+import Dropdown, { Option } from "./Dropdown";
+
 
 
 const validationSchema: any = yup.object().shape({
@@ -84,8 +86,15 @@ const UserForm: React.FC = () => {
     control,
     name: "techStack",
   });
-
+  
   const displayRef = useRef<DisplayRef>(null); // Use useRef to refer to the DisplaySubmittedData component
+
+  const genderOptions: Option[] = [
+    { label: 'Male', value: 'male' },
+    { label: 'Female', value: 'female' },
+    { label: 'Other', value: 'other' },
+  ];
+
 
   const onSubmit = async (data: FormValues) => {
     const formattedDateOfBirth = format(
@@ -207,22 +216,18 @@ const UserForm: React.FC = () => {
                 <FormLabel htmlFor="gender" className="font-bold mb-2">
                   Gender
                 </FormLabel>
-                <select
-                  id="gender"
-                  {...register("gender")}
-                  className="rounded-md h-[35px] w-[300px] bg-[#d9d9d9] px-3 outline-none text-black"
-                >
-                  <option className=" font-semibold">Select Gender</option>
-                  <option value="male" className=" font-semibold">
-                    Male
-                  </option>
-                  <option value="female" className=" font-semibold">
-                    Female
-                  </option>
-                  <option value="other" className="font-semibold">
-                    Other
-                  </option>
-                </select>
+                <Controller
+            name="gender"
+            control={control}
+            rules={{ required: 'Gender is required' }}
+            render={({ field }) => (
+              <Dropdown
+                options={genderOptions}
+                selectedValue={field.value}
+                onChange={(val) => field.onChange(val)}
+              />
+            )}
+          />
                 <ErrorMessage name="gender" errors={errors} />
               </FormControl>
 
@@ -240,17 +245,19 @@ const UserForm: React.FC = () => {
               </FormControl>
             </div>
             <FormControl>
-              <div className="flex flex-row w-[300px] justify-between">              
+              <div className="flex flex-row w-[300px] justify-between ">              
               <FormLabel className="font-bold mb-2">Tech Stack</FormLabel>
               <Button
                 leftIcon={<AddIcon />}
                 onClick={() => append({ name: "" })}
                 mt={2}
+             
               />             
              </div>
 
               {fields.map((field, index) => (
                 <HStack key={field.id} spacing={2}>
+                  <div  className="rounded-md h-[35px] w-[300px] bg-[#d9d9d9] px-3 p-2 mr-2 outline-none text-black mb-2 flex justify-between" > 
                   <Controller
                     name={`techStack.${index}.name`}
                     control={control}
@@ -258,21 +265,23 @@ const UserForm: React.FC = () => {
                       <Input
                       {...field}
                         placeholder="Tech stack"
-                        className="rounded-md h-[35px] w-[300px] bg-[#d9d9d9] px-3 p-2 mr-2 outline-none text-black mb-2"
+                        className="bg-transparent outline-none "
                       />
                     )}
                   />
                   {index !== 0 && (
                     <IconButton
                       aria-label="Remove tech stack"
-                      icon={<DeleteIcon />}
+                      icon={<CloseIcon />}
                       onClick={() => remove(index)}
                     />
                   )}
                   <ErrorMessage
                     name={`techStack.${index}.name`}
                     errors={errors}
+                    className="mt-1 ml-[110px] text-sm text-red-500"
                     />
+                    </div>
                 </HStack>
               ))}          
             </FormControl>
