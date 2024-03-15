@@ -7,7 +7,7 @@ import {
   MenuOptionGroup,
   MenuItemOption,
   Box,
-  Portal, // Import the Portal component
+  Portal, 
 } from '@chakra-ui/react';
 import { ChevronDownIcon, CheckIcon } from '@chakra-ui/icons';
 
@@ -45,7 +45,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           <MenuButton as={Button} rightIcon={<ChevronDownIcon />} ref={buttonRef} className="rounded-md h-[35px] w-[300px] bg-[#d9d9d9] px-3 p-2">
             {options.find(option => option.value === selectedValue)?.label || placeholder}
           </MenuButton>
-          <Portal> {/* Wrap MenuList in Portal */}
+          <Portal>
             <MenuList width={buttonWidth ? `${buttonWidth}px` : 'auto'} sx={{ background: '#d9d9d9', borderRadius: 'md', padding: '3', rounded: '8'}}>
               <MenuOptionGroup defaultValue={selectedValue} type="radio">
                 {options.map(option => (
